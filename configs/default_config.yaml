@@ -1,0 +1,13 @@
+training:
+  batch_size: 64
+  lr: 0.0002
+  beta1: 0.5
+  epochs: 100
+  latent_dim: 100
+
+model:
+  img_size: 64
+  channels: 3
+
+data:
+  dataset_path: "path/to/your/dataset"
