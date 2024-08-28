@@ -1,0 +1,15 @@
+k: 1
+num_epochs: 100
+latent_dim: 256
+device: "cuda:0"
+save_image_epochs: 5
+save_image_batch_size: 15
+batch_size: 512
+
+training:
+  discriminator:
+    lr: 0.000001
+    beta1: 0.9
+  generator:
+    lr: 0.001
+    beta1: 0.9
