@@ -1,6 +1,6 @@
-# GAN Project
+# GANIMAL
 
-This repository contains a implementation of a Generative Adversarial Network (GAN) using PyTorch.
+Model zoo for different GANs
 
 ## Setup
 
@@ -11,3 +11,5 @@ This repository contains a implementation of a Generative Adversarial Network (G
 ## Training
 
 To train the GAN, run:
+
+dont run anything its not working rn

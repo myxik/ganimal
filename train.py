@@ -3,24 +3,40 @@ import yaml
 import torch as th
 import wandb
 
-from ganimal.models.vanilla import CGenerator, CDiscriminator
-from ganimal.datasets.CelebA import get_loaders
+from ganimal.models.vanilla import Generator, Discriminator
+from ganimal.datasets.MNIST import get_loaders
 from ganimal.runners.default_runner import DefaultRunner
 
 
 def train(config):
     # Initialize wandb
-    wandb.init(project="Vanilla GAN CelebA", config=config)
+    wandb.init(project="Vanilla GAN MNIST", config=config)
 
     # Set up dataset, models, optimizers, etc.
     train_loader, valid_loader = get_loaders(config)
-    generator = CGenerator(config.latent_dim)
-    discriminator = CDiscriminator()
+    generator = Generator(config.latent_dim)
+    discriminator = Discriminator()
 
-    optimizer_G = th.optim.Adam(generator.parameters(), lr=config.training.generator.lr, betas=(config.training.generator.beta1, 0.999))
-    optimizer_D = th.optim.Adam(discriminator.parameters(), lr=config.training.discriminator.lr, betas=(config.training.discriminator.beta1, 0.999))
+    optimizer_G = th.optim.Adam(
+        generator.parameters(),
+        lr=config.training.generator.lr,
+        betas=(config.training.generator.beta1, 0.999),
+    )
+    optimizer_D = th.optim.Adam(
+        discriminator.parameters(),
+        lr=config.training.discriminator.lr,
+        betas=(config.training.discriminator.beta1, 0.999),
+    )
 
-    runner = DefaultRunner(generator, discriminator, optimizer_G, optimizer_D, train_loader, valid_loader, config)
+    runner = DefaultRunner(
+        generator,
+        discriminator,
+        optimizer_G,
+        optimizer_D,
+        train_loader,
+        valid_loader,
+        config,
+    )
     runner.run()
 
 
