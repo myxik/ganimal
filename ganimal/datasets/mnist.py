@@ -15,7 +15,7 @@ def get_loaders(config):
     train_dataset = datasets.MNIST(
         root="./mnist_data", train=True, download=True, transform=transform
     )
-    test_dataset = datasets.MNIST(
+    valid_dataset = datasets.MNIST(
         root="./mnist_data", train=False, download=True, transform=transform
     )
 
@@ -28,7 +28,7 @@ def get_loaders(config):
         drop_last=True,
     )
     valid_loader = th.utils.data.DataLoader(
-        dataset=test_dataset,
+        dataset=valid_dataset,
         batch_size=config.batch_size,
         shuffle=False,
         num_workers=32,
