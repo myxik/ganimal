@@ -53,7 +53,7 @@ class DefaultRunner:
 
             self._log_step(D_loss_mean, G_loss)
 
-        return D_loss_mean_epoch, G_loss_epoch
+        return D_loss_mean_epoch / len(self.trainloader), G_loss_epoch / len(self.trainloader)
 
     def _train_discriminator(self, real_images, batch_size):
         D_loss_mean = 0

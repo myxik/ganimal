@@ -3,19 +3,19 @@ import yaml
 import torch as th
 import wandb
 
-from ganimal.models.vanilla import Generator, Discriminator
-from ganimal.datasets.MNIST import get_loaders
+from ganimal.models.dcgan import DCGANDiscriminator, DCGANGenerator
+from ganimal.datasets.lsun import get_loaders
 from ganimal.runners.default_runner import DefaultRunner
 
 
 def train(config):
     # Initialize wandb
-    wandb.init(project="Vanilla GAN MNIST", config=config)
+    wandb.init(project="DCGAN LSUN", config=config)
 
     # Set up dataset, models, optimizers, etc.
     train_loader, valid_loader = get_loaders(config)
-    generator = Generator(config.latent_dim)
-    discriminator = Discriminator()
+    generator = DCGANGenerator(config.latent_dim)
+    discriminator = DCGANDiscriminator()
 
     optimizer_G = th.optim.Adam(
         generator.parameters(),
@@ -41,6 +41,6 @@ def train(config):
 
 
 if __name__ == "__main__":
-    with open("./configs/vanilla_mnist.yml", "r") as f:
+    with open("./configs/dcgan_lsun.yml", "r") as f:
         config = addict.Dict(yaml.safe_load(f))
     train(config)
