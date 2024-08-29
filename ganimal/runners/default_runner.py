@@ -42,7 +42,7 @@ class DefaultRunner:
     def _train_epoch(self):
         D_loss_mean_epoch = G_loss_epoch = 0
         for batch in self.trainloader:
-            real_images = batch[0].to(self.device)
+            real_images = batch.to(self.device)
             batch_size = real_images.size(0)
 
             D_loss_mean = self._train_discriminator(real_images, batch_size)
@@ -123,7 +123,7 @@ class DefaultRunner:
             D_loss_mean = 0
             G_loss_mean = 0
             for batch in self.validloader:
-                real_images = batch[0]
+                real_images = batch
                 real_images = real_images.to(self.device)
                 batch_size = real_images.size(0)
 
