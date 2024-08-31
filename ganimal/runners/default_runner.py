@@ -79,9 +79,7 @@ class DefaultRunner:
         fake_images = self.generator(z)
         D_fake = self.discriminator(fake_images)
 
-        G_loss = F.binary_cross_entropy_with_logits(
-            D_fake, th.ones_like(D_fake)
-        )
+        G_loss = self._compute_generator_loss(D_fake)
 
         self.optimizer_G.zero_grad()
         G_loss.backward()
@@ -97,6 +95,9 @@ class DefaultRunner:
             D_fake, th.zeros_like(D_fake)
         )
         return real_loss + fake_loss
+    
+    def _compute_generator_loss(self, D_fake):
+        return F.binary_cross_entropy_with_logits(D_fake, th.ones_like(D_fake))
 
     def _log_step(self, D_loss_mean, G_loss):
         wandb.log(
