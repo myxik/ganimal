@@ -5,12 +5,12 @@ import wandb
 
 from ganimal.models.dcgan import DCGANDiscriminator, DCGANGenerator
 from ganimal.datasets.lsun import get_loaders
-from ganimal.runners.default_runner import DefaultRunner
+from ganimal.runners.wgan_runner import WGANRunner
 
 
 def train(config):
     # Initialize wandb
-    wandb.init(project="DCGAN LSUN", config=config)
+    wandb.init(project="WGAN LSUN", config=config)
 
     # Set up dataset, models, optimizers, etc.
     train_loader, valid_loader = get_loaders(config)
@@ -28,7 +28,7 @@ def train(config):
         betas=(config.training.discriminator.beta1, 0.999),
     )
 
-    runner = DefaultRunner(
+    runner = WGANRunner(
         generator,
         discriminator,
         optimizer_G,
